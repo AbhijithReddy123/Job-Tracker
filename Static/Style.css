@@ -1,0 +1,119 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #f6d365, #fda085);
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    padding: 20px;
+    flex: 1 1 calc(45% - 20px);
+    min-width: 250px;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.form-card {
+    margin-bottom: 30px;
+    padding: 15px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.3em;
+    color: #007bff;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.progress-container {
+    width: 100%;
+    background: #eee;
+    border-radius: 12px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 20px;
+    color: #fff;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 12px;
+    transition: width 0.5s ease;
+}
+
+.btn {
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.btn-update {
+    background: linear-gradient(45deg, #007bff, #00c6ff);
+    color: white;
+}
+
+.btn-update:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-delete {
+    background: linear-gradient(45deg, #dc3545, #ff6b6b);
+    color: white;
+}
+
+.btn-delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 600px) {
+    .cards-container {
+        flex-direction: column;
+    }
+    .card {
+        flex: 1 1 100%;
+    }
+}

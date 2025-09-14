@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Application Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#007bff">
+
+    <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/static/service-worker.js')
+          .then(function(registration) {
+            console.log('ServiceWorker registered: ', registration);
+          })
+          .catch(function(error) {
+            console.log('ServiceWorker registration failed: ', error);
+          });
+      });
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Job Application Tracker</h1>
+
+        <!-- Add Application Form -->
+        <div class="card form-card">
+            <form action="/submit" method="POST">
+                <input type="text" name="company" placeholder="Company Name" required>
+                <input type="text" name="role" placeholder="Position" required>
+                <input type="date" name="date_applied" value="{{ today }}">
+                <button type="submit" class="btn btn-update">Add Application</button>
+            </form>
+        </div>
+
+        <!-- Applications List -->
+        <div class="cards-container">
+            {% for app in applications %}
+            <div class="card app-card">
+                <div class="card-header">
+                    <h2>{{ app.company }}</h2>
+                    <span class="status" style="background-color: {{ app.color }};">{{ app.status }}</span>
+                </div>
+                <p><strong>Position:</strong> {{ app.role }}</p>
+                <p><strong>Applied on:</strong> {{ app.date_applied.strftime('%d %b %Y') }}</p>
+
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: {{ app.progress }}%; background-color: {{ app.color }};">
+                        {{ app.status }}
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <form action="/update/{{ app.id }}" method="POST">
+                        <select name="status">
+                            <option value="Applied" {% if app.status == 'Applied' %}selected{% endif %}>Applied</option>
+                            <option value="Interview" {% if app.status == 'Interview' %}selected{% endif %}>Interview</option>
+                            <option value="Offer" {% if app.status == 'Offer' %}selected{% endif %}>Offer</option>
+                            <option value="Rejected" {% if app.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+                            <option value="No Response" {% if app.status == 'No Response' %}selected{% endif %}>No Response</option>
+                        </select>
+                        <button type="submit" class="btn btn-update">Update</button>
+                    </form>
+                    <form action="/delete/{{ app.id }}" method="POST">
+                        <button type="submit" class="btn btn-delete">Delete</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
